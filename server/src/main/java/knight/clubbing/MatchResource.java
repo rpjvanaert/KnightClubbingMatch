@@ -8,7 +8,6 @@ import knight.clubbing.api.models.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 
 @Path(ApiPaths.BASE_PATH)
 @Produces(MediaType.APPLICATION_JSON)
@@ -16,7 +15,7 @@ import java.util.Map;
 public class MatchResource implements MatchApi {
 
     @POST
-    @Path("status")
+    @Path("run")
     @Override
     public RunResponse runMatch(RunRequest runRequest) {
         return null;
