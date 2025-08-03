@@ -7,3 +7,18 @@
 *.bak
 *.tmp
 *.autosave
+
+# Maven target directories
+**/target/
+
+# Maven wrapper files
+.mvn/
+mvnw
+mvnw.cmd
+
+# Docker-related files
+server/src/main/docker/
+
+# IDE-specific files (optional, if IntelliJ IDEA files are unversioned)
+*.iml
+.idea/
