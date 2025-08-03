@@ -1,0 +1,262 @@
+openapi: 3.0.0
+info:
+  title: KnightClubbingMatch API
+  description: API for managing and spectating KnightClubbing matches.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Local server
+
+paths:
+  /api/run:
+    post:
+      summary: Run a match with specified parameters
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                engine1:
+                  type: string
+                engine2:
+                  type: string
+                timeControl:
+                  type: string
+                amount:
+                  type: integer
+                uciOptions:
+                  type: object
+                  additionalProperties:
+                    type: string
+                do_sprt:
+                  type: boolean
+      responses:
+        '200':
+          description: Match started successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  matchId:
+                    type: string
+                  status:
+                    type: string
+
+  /api/status:
+    get:
+      summary: Get the current status of the server
+      responses:
+        '200':
+          description: Server status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+
+  /api/history:
+    get:
+      summary: Retrieve match history
+      parameters:
+        - name: from
+          in: header
+          required: false
+          schema:
+            type: string
+            format: date-time
+        - name: to
+          in: header
+          required: false
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: Match history
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Match'
+
+  /api/history/match/{id}:
+    get:
+      summary: Retrieve a specific match by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Match details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Match'
+
+  /api/history/game/{id}:
+    get:
+      summary: Retrieve a specific game by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Game details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+
+  /api/engines/add:
+    post:
+      summary: Validate and add a new engine
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                id:
+                  type: string
+                available_options:
+                  type: array
+                  items:
+                    type: string
+                mvn_repository:
+                  type: string
+      responses:
+        '200':
+          description: Engine added successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  message:
+                    type: string
+
+  /api/engines:
+    get:
+      summary: Retrieve list of available engines
+      responses:
+        '200':
+          description: List of engines
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Engine'
+
+  /api/engines/{id}:
+    get:
+      summary: Retrieve details of a specific engine by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Engine details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Engine'
+
+components:
+  schemas:
+    Match:
+      type: object
+      properties:
+        id:
+          type: string
+        engine1:
+          type: string
+        engine2:
+          type: string
+        timeControl:
+          type: string
+        result:
+          type: string
+        status:
+          type: string
+        completedAt:
+          type: string
+          format: date-time
+        uciOptions:
+          type: object
+          additionalProperties:
+            type: string
+        games:
+          type: array
+          items:
+            type: string
+        sprt:
+          $ref: '#/components/schemas/SPRT'
+
+    Game:
+      type: object
+      properties:
+        id:
+          type: string
+        matchId:
+          type: string
+        result:
+          type: string
+        pgn:
+          type: string
+        completedAt:
+          type: string
+          format: date-time
+
+    Engine:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        available_options:
+          type: array
+          items:
+            type: string
+
+    SPRT:
+      type: object
+      properties:
+        state:
+          type: string
+          enum: [ passed, failed, inconclusive ]
+        elo0:
+          type: number
+        elo1:
+          type: number
+        elo:
+          type: number
+        alpha:
+          type: number
+        beta:
+          type: number
+        lower_bound:
+          type: number
+        upper_bound:
+          type: number

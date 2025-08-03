@@ -2,3 +2,8 @@
 /shared/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst
 /shared/target/maven-archiver/pom.properties
 /shared/target/shared-1.0-SNAPSHOT.jar
+
+# Ignore design tool backups or temporary files
+*.bak
+*.tmp
+*.autosave
