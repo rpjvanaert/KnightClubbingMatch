@@ -17,6 +17,7 @@ public class MatchRunner {
     private final List<MatchListener> matchListeners = new ArrayList<>();
     private final ExecutorService executorService = Executors.newCachedThreadPool();
     private volatile String runningMatchId = null;
+    private Process runningProcess = null;
 
     public boolean isRunning() {
         return runningMatchId != null;
@@ -51,16 +52,16 @@ public class MatchRunner {
                         "-games", "100",
                         "-pgnout", outputPath
                 );
-                Process process = pb.start();
+                runningProcess = pb.start();
 
-                try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+                try (BufferedReader reader = new BufferedReader(new InputStreamReader(runningProcess.getInputStream()))) {
                     String line;
                     while ((line = reader.readLine()) != null) {
                         notifyMatchProgress(matchId, line);
                     }
                 }
 
-                int exitCode = process.waitFor();
+                int exitCode = runningProcess.waitFor();
                 if (exitCode == 0) {
                     notifyMatchEnd(matchId, "Match completed successfully");
                 } else {
@@ -73,8 +74,18 @@ public class MatchRunner {
                 notifyMatchEnd(matchId, "Match interrupted");
             } finally {
                 runningMatchId = null;
+                runningProcess = null;
             }
         });
+    }
+
+    public void cancelMatch() {
+        if (runningProcess != null) {
+            runningProcess.destroy();
+            notifyMatchEnd(runningMatchId, "Match was canceled");
+            runningMatchId = null;
+            runningProcess = null;
+        }
     }
 
     private void notifyMatchStart(String matchId) {
