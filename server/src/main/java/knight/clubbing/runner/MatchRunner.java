@@ -8,13 +8,15 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @Singleton
 public class MatchRunner {
 
     private final List<MatchListener> matchListeners = new ArrayList<>();
-
-    private String runningMatchId = null;
+    private final ExecutorService executorService = Executors.newCachedThreadPool();
+    private volatile String runningMatchId = null;
 
     public boolean isRunning() {
         return runningMatchId != null;
@@ -33,41 +35,49 @@ public class MatchRunner {
     }
 
     public void runMatch(String matchId, String mvnEngine1, Engine mvnEngine2, String outputPath) {
-        try {
-            notifyMatchStart(matchId);
-
-            ProcessBuilder pb = new ProcessBuilder(
-                    "cutechess-cli",
-                    "-engine", "cmd=" + mvnEngine1,
-                    "-engine", "cmd=" + mvnEngine2,
-                    "-games", "100",
-                    "-pgnout", outputPath
-            );
-
-            Process process = pb.start();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-
-            String line;
-            while ((line = reader.readLine()) != null) {
-                notifyMatchProgress(matchId, line);
-            }
-
-            process.waitFor();
-
-            notifyMatchEnd(matchId, "Match completed successfully");
-
-        } catch (IOException e) {
-            notifyMatchEnd(matchId, "Error running match: " + e.getMessage());
-            throw new MatchRunningException("Failed running match", e);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            notifyMatchEnd(matchId, "Match interrupted");
-            throw new MatchRunningException("Match was interrupted", e);
+        if (isRunning()) {
+            throw new IllegalStateException("A match is already running: " + runningMatchId);
         }
+
+        executorService.submit(() -> {
+            try {
+                notifyMatchStart(matchId);
+                runningMatchId = matchId;
+
+                ProcessBuilder pb = new ProcessBuilder(
+                        "cutechess-cli",
+                        "-engine", "cmd=" + mvnEngine1,
+                        "-engine", "cmd=" + mvnEngine2,
+                        "-games", "100",
+                        "-pgnout", outputPath
+                );
+                Process process = pb.start();
+
+                try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        notifyMatchProgress(matchId, line);
+                    }
+                }
+
+                int exitCode = process.waitFor();
+                if (exitCode == 0) {
+                    notifyMatchEnd(matchId, "Match completed successfully");
+                } else {
+                    notifyMatchEnd(matchId, "Match failed with exit code: " + exitCode);
+                }
+            } catch (IOException e) {
+                notifyMatchEnd(matchId, "Error running match: " + e.getMessage());
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                notifyMatchEnd(matchId, "Match interrupted");
+            } finally {
+                runningMatchId = null;
+            }
+        });
     }
 
     private void notifyMatchStart(String matchId) {
-        this.runningMatchId = matchId;
         for (MatchListener listener : matchListeners) {
             listener.onMatchStart(matchId);
         }
@@ -80,7 +90,6 @@ public class MatchRunner {
     }
 
     private void notifyMatchEnd(String matchId, String result) {
-        this.runningMatchId = null;
         for (MatchListener listener : matchListeners) {
             listener.onMatchComplete(matchId, result);
         }
