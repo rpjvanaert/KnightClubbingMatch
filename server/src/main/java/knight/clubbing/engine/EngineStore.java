@@ -1,4 +1,4 @@
-package knight.clubbing;
+package knight.clubbing.engine;
 
 import jakarta.inject.Singleton;
 import knight.clubbing.api.models.Engine;
@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Singleton
-public class EngineManager {
+public class EngineStore {
 
     private final List<Engine> engines = new ArrayList<>();
 
