@@ -41,8 +41,12 @@ public class MatchRunner implements MatchProcessListener {
             try {
                 notifyMatchStart(matchId);
                 process.start(this);
-            } catch (IOException | InterruptedException e) {
+            } catch (IOException e) {
                 notifyMatchEnd(matchId, "Error running match: " + e.getMessage());
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                notifyMatchEnd(matchId, "Match was interrupted");
+
             } finally {
                 process = null;
             }

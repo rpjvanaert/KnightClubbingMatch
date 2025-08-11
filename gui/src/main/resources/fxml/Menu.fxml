@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="knight.clubbing.MenuController" spacing="10" alignment="CENTER">
+    <Button text="Start" onAction="#onStartButtonClicked"/>
+</VBox>
