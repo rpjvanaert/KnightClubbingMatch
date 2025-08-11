@@ -2,7 +2,26 @@
 
 KnightClubbingMatch is a GUI/Server application designed to manage and play KnightClubbing/UCI matches.
 
+<!-- TOC -->
+* [Design of KnightClubbingMatch](#design-of-knightclubbingmatch)
+* [Overview](#overview)
+  * [Requirements](#requirements)
+* [Communication](#communication)
+  * [API Endpoints](#api-endpoints)
+    * [Endpoint: Run](#endpoint-run)
+    * [Endpoint: Status](#endpoint-status)
+    * [Endpoint: History](#endpoint-history)
+    * [Endpoint: History Match](#endpoint-history-match)
+    * [Endpoint: History Game](#endpoint-history-game)
+    * [Endpoint: Engines Add](#endpoint-engines-add)
+    * [Endpoint: Engines](#endpoint-engines)
+    * [Endpoint: Engines ID](#endpoint-engines-id)
+  * [WebSocket Communication](#websocket-communication)
+<!-- TOC -->
+
 # Overview
+
+## Requirements
 - GUI
   - Functional
     - SPRT
