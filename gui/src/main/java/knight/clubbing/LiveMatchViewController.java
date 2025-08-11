@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 
 import java.io.IOException;
 
-public class MatchSetupController implements ModuleController {
+public class LiveMatchViewController implements ModuleController {
 
     private IMainController mainController;
 
@@ -19,12 +19,13 @@ public class MatchSetupController implements ModuleController {
     }
 
     @FXML
-    private void onStartButtonClicked() {
+    private void onContinueClicked() {
         try {
-            mainController.setStatus("To live match view", LabelStatusType.PENDING);
-            mainController.loadModule("/fxml/LiveMatchView.fxml");
+            mainController.setStatus("To specator view");
+            mainController.loadModule("/fxml/LiveMatchSpectator.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 }

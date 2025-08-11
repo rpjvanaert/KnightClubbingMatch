@@ -2,5 +2,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Button?>
 <VBox xmlns:fx="http://javafx.com/fxml" fx:controller="knight.clubbing.MenuController" spacing="10" alignment="CENTER">
-    <Button text="Start" onAction="#onStartButtonClicked"/>
+    <Button text="Match setup" onAction="#onMatchSetupClicked"/>
+    <Button text="History" onAction="#onHistoryButtonClicked"/>
+    <Button text="Engine Management" onAction="#onEngineManagementButtonClicked"/>
 </VBox>
