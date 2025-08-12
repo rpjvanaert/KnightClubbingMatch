@@ -21,7 +21,6 @@ public class EngineManagementController implements ModuleController {
     @FXML
     private void onBackToMenu() {
         try {
-            mainController.setStatus("Back to Menu");
             mainController.loadModule("/fxml/Menu.fxml");
         } catch (IOException e) {
             e.printStackTrace();

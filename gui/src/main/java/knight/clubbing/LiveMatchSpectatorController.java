@@ -21,7 +21,6 @@ public class LiveMatchSpectatorController implements ModuleController {
     @FXML
     private void onContinueClicked() {
         try {
-            mainController.setStatus("To results");
             mainController.loadModule("/fxml/Results.fxml");
         } catch (IOException e) {
             e.printStackTrace();

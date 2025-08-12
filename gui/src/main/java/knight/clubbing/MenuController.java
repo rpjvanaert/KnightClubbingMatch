@@ -21,7 +21,6 @@ public class MenuController implements ModuleController {
     @FXML
     private void onMatchSetupClicked() {
         try {
-            mainController.setStatus("To Match Setup");
             mainController.loadModule("/fxml/MatchSetup.fxml");
         } catch (IOException e) {
             e.printStackTrace();
@@ -31,7 +30,6 @@ public class MenuController implements ModuleController {
     @FXML
     private void onHistoryButtonClicked() {
         try {
-            mainController.setStatus("To History");
             mainController.loadModule("/fxml/History.fxml");
         } catch (IOException e) {
             e.printStackTrace();
@@ -41,7 +39,6 @@ public class MenuController implements ModuleController {
     @FXML
     private void onEngineManagementButtonClicked() {
         try {
-            mainController.setStatus("To Engine Management");
             mainController.loadModule("/fxml/EngineManagement.fxml");
         } catch (IOException e) {
             e.printStackTrace();

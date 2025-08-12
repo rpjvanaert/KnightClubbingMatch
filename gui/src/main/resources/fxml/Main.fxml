@@ -7,12 +7,12 @@
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="knight.clubbing.MainController">
     <top>
         <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 10; -fx-background-color: #ececec;">
-            <Label text="My Application Title" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+            <Label text="Knight Clubbing Match" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
             <Region fx:id="spacer" HBox.hgrow="ALWAYS"/>
             <Label fx:id="statusLabel" text="" style="-fx-font-size: 14px;"/>
         </HBox>
     </top>
     <center>
-        <StackPane fx:id="moduleContainer"/>
+        <StackPane fx:id="moduleContainer" style="-fx-padding: 20;" />
     </center>
 </BorderPane>
