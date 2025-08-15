@@ -72,10 +72,36 @@
     <HBox spacing="10">
         <VBox spacing="10">
             <Label text="Engine 1" style="-fx-font-size: 12px;" underline="true"/>
+            <ComboBox fx:id="engine1ComboBox" prefWidth="200">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                    </FXCollections>
+                </items>
+            </ComboBox>
+            <Label text="Version:" style="-fx-font-size: 12px;"/>
+            <ComboBox fx:id="engine1VersionComboBox" prefWidth="200">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                    </FXCollections>
+                </items>
+            </ComboBox>
         </VBox>
         <Region prefWidth="40"/>
         <VBox spacing="10">
             <Label text="Engine 2" style="-fx-font-size: 12px;" underline="true"/>
+            <ComboBox fx:id="engine2ComboBox" prefWidth="200">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                    </FXCollections>
+                </items>
+            </ComboBox>
+            <Label text="Version:" style="-fx-font-size: 12px;"/>
+            <ComboBox fx:id="engine2VersionComboBox" prefWidth="200">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                    </FXCollections>
+                </items>
+            </ComboBox>
         </VBox>
     </HBox>
 
