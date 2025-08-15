@@ -2,7 +2,19 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="knight.clubbing.HistoryController" spacing="10" alignment="CENTER">
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="knight.clubbing.HistoryController" spacing="10">
     <Label text="History" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+    <TableView fx:id="historyTable">
+        <columns>
+            <TableColumn fx:id="resultColumn" text="Result" prefWidth="100"/>
+            <TableColumn fx:id="engine1Column" text="Engine 1" prefWidth="200"/>
+            <TableColumn fx:id="engine2Column" text="Engine 2" prefWidth="200"/>
+            <TableColumn fx:id="dateColumn" text="Date" prefWidth="100"/>
+            <TableColumn fx:id="sprtColumn" text="SPRT" prefWidth="100"/>
+            <TableColumn fx:id="statusColumn" text="Status" prefWidth="100"/>
+        </columns>
+    </TableView>
     <Button text="Back to menu" onAction="#onBackToMenu"/>
 </VBox>
