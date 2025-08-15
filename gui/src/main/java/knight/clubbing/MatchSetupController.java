@@ -59,6 +59,12 @@ public class MatchSetupController implements ModuleController {
     private ObservableList<String> versions1;
     private ObservableList<String> versions2;
 
+    @FXML
+    private Spinner<Integer> amountThreadsSpinner;
+
+    @FXML
+    private CheckBox ponderingCheckBox;
+
     @Override
     public void setMainController(IMainController mainController) {
         this.mainController = mainController;
