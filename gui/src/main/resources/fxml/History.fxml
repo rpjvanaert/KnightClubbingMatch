@@ -8,6 +8,7 @@
     <Label text="History" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
     <TableView fx:id="historyTable">
         <columns>
+            <TableColumn fx:id="detailsColumn" text="Details" prefWidth="80"/>
             <TableColumn fx:id="resultColumn" text="Result" prefWidth="100"/>
             <TableColumn fx:id="engine1Column" text="Engine 1" prefWidth="200"/>
             <TableColumn fx:id="engine2Column" text="Engine 2" prefWidth="200"/>

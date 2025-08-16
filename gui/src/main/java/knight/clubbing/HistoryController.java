@@ -23,6 +23,9 @@ public class HistoryController implements ModuleController {
     private TableView<Match> historyTable;
 
     @FXML
+    private TableColumn<Match, Void> detailsColumn;
+
+    @FXML
     private TableColumn<Match, String> resultColumn;
 
     @FXML
@@ -49,9 +52,16 @@ public class HistoryController implements ModuleController {
     private void initialize() {
         configureCellValueFactories();
         configureColumnWidths();
+        configureDetailsButton();
 
         ObservableList<Match> matches = FXCollections.observableArrayList(
                 new Match("idOfMatch1", "EngineA", "EngineB", "5+0", "1-0", "completed",
+                        LocalDateTime.now(), null, null,
+                        new Sprt("passed", 1500, 1450, 1475, 0.05, 0.05, 1400, 1550)),
+                new Match("idOfMatch2", "EngineC", "EngineB", "5+0", "1/2-1/2", "completed",
+                        LocalDateTime.now(), null, null,
+                        new Sprt("passed", 1500, 1450, 1475, 0.05, 0.05, 1400, 1550)),
+                new Match("idOfMatch2", "EngineA", "EngineC", "5+0", "0-0", "completed",
                         LocalDateTime.now(), null, null,
                         new Sprt("passed", 1500, 1450, 1475, 0.05, 0.05, 1400, 1550))
         );
@@ -89,6 +99,28 @@ public class HistoryController implements ModuleController {
         dateColumn.setResizable(false);
         sprtColumn.setResizable(false);
         statusColumn.setResizable(false);
+    }
+
+    private void configureDetailsButton() {
+        detailsColumn.setCellFactory(col -> new javafx.scene.control.TableCell<>() {
+            private final javafx.scene.control.Button btn = new javafx.scene.control.Button("Details");
+            {
+                btn.setOnAction(event -> {
+                    Match match = getTableView().getItems().get(getIndex());
+                    showMatchDetails(match.id());
+                });
+            }
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                setGraphic(empty ? null : btn);
+            }
+        });
+    }
+
+    private void showMatchDetails(String matchId) {
+        // Implement navigation or dialog showing details for matchId
+        System.out.println("Show details for match: " + matchId);
     }
 
     @FXML
