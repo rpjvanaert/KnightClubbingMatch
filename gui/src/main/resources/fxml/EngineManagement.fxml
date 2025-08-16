@@ -2,7 +2,18 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="knight.clubbing.EngineManagementController" spacing="10" alignment="CENTER">
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="knight.clubbing.EngineManagementController" spacing="10">
     <Label text="Engine Management" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+    <TableView fx:id="engineTable">
+        <columns>
+            <TableColumn fx:id="engineNameColumn" text="Engine Name" prefWidth="200"/>
+            <TableColumn fx:id="mvnRepositoryColumn" text="Maven Repository" prefWidth="200"/>
+            <TableColumn fx:id="engineOptionsColumn" text="Options" prefWidth="200"/>
+        </columns>
+    </TableView>
+    <Button text="Add Engine" onAction="#onAddEngine"/>
+    <Button text="Remove Engine" onAction="#onRemoveEngine"/>
     <Button text="Back to menu" onAction="#onBackToMenu"/>
 </VBox>
