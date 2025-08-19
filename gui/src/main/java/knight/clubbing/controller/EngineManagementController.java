@@ -1,4 +1,4 @@
-package knight.clubbing;
+package knight.clubbing.controller;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -7,14 +7,19 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import knight.clubbing.api.MatchApi;
 import knight.clubbing.api.models.Engine;
+import knight.clubbing.service.MatchApiClient;
 
 import java.io.IOException;
 import java.util.Arrays;
 
+import static knight.clubbing.ApiConfig.API_BASE_URL;
+
 public class EngineManagementController implements ModuleController {
 
     private IMainController mainController;
+    private MatchApi matchApi;
 
     @FXML
     private TableView<Engine> engineTable;
@@ -35,15 +40,12 @@ public class EngineManagementController implements ModuleController {
 
     @FXML
     private void initialize() {
+        this.matchApi = new MatchApiClient(API_BASE_URL);
         configureCellValueFactories();
 
-        ObservableList<Engine> engineList = FXCollections.observableArrayList(
-                new Engine("org.example:engine1", "Engine 1", new String[]{"option1", "option2"}, "https://repo.maven.apache.org/maven2/org/example/engine1",
-                        new String[]{"1.0", "1.1"}),
-                new Engine("org.example:engine2", "Engine 2", new String[]{"optionA", "optionB"}, "https://repo.maven.apache.org/maven2/org/example/engine2",
-                        new String[]{"2.0", "2.1"})
-        ); //todo replace with actual engine data retrieval logic
+        ObservableList<Engine> engineList = FXCollections.observableArrayList();
         engineTable.setItems(engineList);
+        engineList.setAll(this.matchApi.getEngines());
     }
 
     private void configureCellValueFactories() {

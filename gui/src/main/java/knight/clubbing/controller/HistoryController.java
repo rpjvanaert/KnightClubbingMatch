@@ -1,4 +1,4 @@
-package knight.clubbing;
+package knight.clubbing.controller;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -6,14 +6,11 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import knight.clubbing.api.models.Match;
 import knight.clubbing.api.models.Sprt;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Map;
 
 public class HistoryController implements ModuleController {
 

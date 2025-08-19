@@ -10,7 +10,7 @@
 <?import java.lang.String?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.control.Separator?>
-<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="knight.clubbing.MatchSetupController" spacing="10">
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="knight.clubbing.controller.MatchSetupController" spacing="10">
     <Label text="Match Setup" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
 
     <HBox spacing="10">

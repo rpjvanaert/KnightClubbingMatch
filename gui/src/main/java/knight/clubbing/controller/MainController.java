@@ -1,4 +1,4 @@
-package knight.clubbing;
+package knight.clubbing.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

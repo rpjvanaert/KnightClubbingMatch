@@ -1,4 +1,4 @@
-package knight.clubbing;
+package knight.clubbing.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

@@ -2,7 +2,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="knight.clubbing.LiveMatchViewController" spacing="10" alignment="CENTER">
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="knight.clubbing.controller.LiveMatchViewController" spacing="10" alignment="CENTER">
     <Label text="Live Match View" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
     <Button text="Start" onAction="#onContinueClicked"/>
 </VBox>

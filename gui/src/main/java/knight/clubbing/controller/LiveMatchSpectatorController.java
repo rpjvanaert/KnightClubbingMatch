@@ -1,10 +1,10 @@
-package knight.clubbing;
+package knight.clubbing.controller;
 
 import javafx.fxml.FXML;
 
 import java.io.IOException;
 
-public class LiveMatchViewController implements ModuleController {
+public class LiveMatchSpectatorController implements ModuleController {
 
     private IMainController mainController;
 
@@ -21,7 +21,7 @@ public class LiveMatchViewController implements ModuleController {
     @FXML
     private void onContinueClicked() {
         try {
-            mainController.loadModule("/fxml/LiveMatchSpectator.fxml");
+            mainController.loadModule("/fxml/Results.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -4,7 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TableColumn?>
-<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="knight.clubbing.EngineManagementController" spacing="10">
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="knight.clubbing.controller.EngineManagementController" spacing="10">
     <Label text="Engine Management" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
     <TableView fx:id="engineTable">
         <columns>
