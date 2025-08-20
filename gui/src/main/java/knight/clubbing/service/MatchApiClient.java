@@ -78,7 +78,7 @@ public class MatchApiClient implements MatchApi {
             Engine[] engines = objectMapper.readValue(response.body(), Engine[].class);
             return Arrays.asList(engines);
         } catch (Exception e) {
-            throw new RuntimeException("Failed to get engines", e);
+            return List.of();
         }
     }
 
