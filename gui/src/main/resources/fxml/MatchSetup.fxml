@@ -15,7 +15,7 @@
 
     <HBox spacing="10">
         <Label text="Base Time:"/>
-        <Spinner fx:id="baseTimeSpinner" min="1" max="60" initialValue="5" editable="true"/>
+        <Spinner fx:id="baseTimeSpinner" min="1" max="600" initialValue="60" editable="true"/>
         <ComboBox fx:id="baseTimeUnitComboBox">
             <items>
                 <FXCollections fx:factory="observableArrayList">
@@ -25,7 +25,7 @@
             </items>
         </ComboBox>
         <Label text="Increment:"/>
-        <Spinner fx:id="incrementSpinner" min="0" max="60" initialValue="3" editable="true"/>
+        <Spinner fx:id="incrementSpinner" min="0" max="600" initialValue="1" editable="true"/>
         <ComboBox fx:id="incrementUnitComboBox">
             <items>
                 <FXCollections fx:factory="observableArrayList">
@@ -38,7 +38,7 @@
 
     <HBox spacing="10">
         <Label text="Amount of matches:"/>
-        <Spinner fx:id="amountMatchesSpinner" min="1" max="60" initialValue="5" editable="true"/>
+        <Spinner fx:id="amountMatchesSpinner" min="1" max="500" initialValue="100" editable="true"/>
     </HBox>
 
     <HBox spacing="10">
