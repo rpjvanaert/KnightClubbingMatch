@@ -8,13 +8,17 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import knight.clubbing.api.models.Match;
 import knight.clubbing.api.models.Sprt;
+import knight.clubbing.service.HistoryService;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 
+import static knight.clubbing.ApiConfig.API_BASE_URL;
+
 public class HistoryController implements ModuleController {
 
     private IMainController mainController;
+    private HistoryService service;
 
     @FXML
     private TableView<Match> historyTable;
@@ -47,22 +51,15 @@ public class HistoryController implements ModuleController {
 
     @FXML
     private void initialize() {
+        this.service = new HistoryService(API_BASE_URL);
+
         configureCellValueFactories();
         configureColumnWidths();
         configureDetailsButton();
 
-        ObservableList<Match> matches = FXCollections.observableArrayList(
-                new Match("idOfMatch1", "EngineA", "EngineB", "5+0", "1-0", "completed",
-                        LocalDateTime.now(), null, null,
-                        new Sprt("passed", 1500, 1450, 1475, 0.05, 0.05, 1400, 1550)),
-                new Match("idOfMatch2", "EngineC", "EngineB", "5+0", "1/2-1/2", "completed",
-                        LocalDateTime.now(), null, null,
-                        new Sprt("passed", 1500, 1450, 1475, 0.05, 0.05, 1400, 1550)),
-                new Match("idOfMatch2", "EngineA", "EngineC", "5+0", "0-0", "completed",
-                        LocalDateTime.now(), null, null,
-                        new Sprt("passed", 1500, 1450, 1475, 0.05, 0.05, 1400, 1550))
-        );
+        ObservableList<Match> matches = FXCollections.observableArrayList();
         historyTable.setItems(matches);
+        matches.setAll(this.service.getMatchHistory(null, null));
     }
 
     private void configureCellValueFactories() {

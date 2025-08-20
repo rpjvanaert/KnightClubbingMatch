@@ -7,19 +7,18 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import knight.clubbing.api.MatchApi;
 import knight.clubbing.api.models.Engine;
-import knight.clubbing.service.MatchApiClient;
+import knight.clubbing.service.EngineService;
 
 import java.io.IOException;
 import java.util.Arrays;
 
 import static knight.clubbing.ApiConfig.API_BASE_URL;
 
-public class EngineManagementController implements ModuleController {
+public class EngineController implements ModuleController {
 
     private IMainController mainController;
-    private MatchApi matchApi;
+    private EngineService service;
 
     @FXML
     private TableView<Engine> engineTable;
@@ -40,12 +39,12 @@ public class EngineManagementController implements ModuleController {
 
     @FXML
     private void initialize() {
-        this.matchApi = new MatchApiClient(API_BASE_URL);
+        this.service = new EngineService(API_BASE_URL);
         configureCellValueFactories();
 
         ObservableList<Engine> engineList = FXCollections.observableArrayList();
         engineTable.setItems(engineList);
-        engineList.setAll(this.matchApi.getEngines());
+        engineList.setAll(this.service.getEngines());
     }
 
     private void configureCellValueFactories() {
