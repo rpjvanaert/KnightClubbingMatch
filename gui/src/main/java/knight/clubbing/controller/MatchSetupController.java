@@ -76,7 +76,7 @@ public class MatchSetupController implements ModuleController {
             sprtSettingsBox.setVisible(isSelected);
             sprtSettingsBox.setManaged(isSelected);
         });
-        this.baseTimeUnitComboBox.setValue("minutes");
+        this.baseTimeUnitComboBox.setValue("seconds");
         this.incrementUnitComboBox.setValue("seconds");
 
         this.engines = FXCollections.observableArrayList();
