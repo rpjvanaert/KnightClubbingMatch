@@ -109,7 +109,7 @@
 
     <HBox spacing="10">
         <Label text="Amount of Threads:"/>
-        <Spinner fx:id="amountThreadsSpinner" min="1" max="60" initialValue="5" editable="true"/>
+        <Spinner fx:id="amountThreadsSpinner" min="1" max="32" initialValue="1" editable="true"/>
     </HBox>
 
     <HBox spacing="10">

@@ -7,6 +7,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.Pane;
+import knight.clubbing.api.models.RunRequest;
 
 import java.io.IOException;
 
@@ -111,17 +112,51 @@ public class MatchSetupController implements ModuleController {
         } else {
             engineVersionComboBox.setDisable(false);
             versions.clear();
-            versions.addAll(newValue + ":latest", "v15.1", "v14.1", "v13.1", "v12.1"); //todo from engine manager
+            versions.addAll("v15.1", "v14.1", "v13.1", "v12.1"); //todo from engine manager
         }
     }
 
     @FXML
     private void onStart() {
         try {
+            RunRequest request = determineRunRequest();
+            System.out.println(request);
+
             mainController.loadModule("/fxml/LiveMatchView.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private RunRequest determineRunRequest() {
+        String engine1 = engine1ComboBox.getValue() + ":" + engine1VersionComboBox.getValue();
+        String engine2 = engine2ComboBox.getValue() + ":" + engine2VersionComboBox.getValue();
+        String timeControl = getTimeControl();
+
+        //todo threads, pondering
+
+        return new RunRequest(
+                engine1,
+                engine2,
+                timeControl,
+                amountMatchesSpinner.getValue(),
+                null,
+                sprtCheckBox.isSelected()
+        );
+    }
+
+    private String getTimeControl() {
+        int baseTime = baseTimeSpinner.getValue();
+        if (baseTimeUnitComboBox.getValue().equals("minutes")) {
+            baseTime = baseTime * 60;
+        }
+
+        int increment = incrementSpinner.getValue();
+        if (incrementUnitComboBox.getValue().equals("minutes")) {
+            increment = increment * 60;
+        }
+
+        return baseTime + "|" + increment;
     }
 
     @FXML
